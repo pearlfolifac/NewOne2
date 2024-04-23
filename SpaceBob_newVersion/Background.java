@@ -21,7 +21,7 @@ public class Background extends World
     
     public void act()
     {
-        if(Greenfoot.getRandomNumber(300)<=2)
+        if(Greenfoot.getRandomNumber(600)<=2)
         {
             addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(250)+500);
         }
