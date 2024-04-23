@@ -10,7 +10,7 @@ public class Bob extends Actor
 {
     private int vSpeed = 0;
     private int acceleration = 1;
-    private int jumpHeight = -20;
+    private int jumpHeight = -10;
     private int collect = 0;
     boolean TenCoinsCollected = false;
     public Bob()
@@ -39,6 +39,12 @@ public class Bob extends Actor
             vSpeed = jumpHeight;
             fall();
             collect();
+        }
+        if (Greenfoot.isKeyDown("space"))
+        {
+            vSpeed = jumpHeight; // Set the vertical speed again for the double jump
+            fall(); // Handle falling behavior
+            collect(); // Collect any items during the double jump
         }
     }
     boolean onGround()
@@ -72,8 +78,6 @@ public class Bob extends Actor
         }
         if(collect == 10 && TenCoinsCollected == false)
         {
-            //getWorld().addObject(new SecretDoor(), 1950, 450);
-            //TenCoinsCollected = true;
             Greenfoot.setWorld(new Background2());
         }
     }

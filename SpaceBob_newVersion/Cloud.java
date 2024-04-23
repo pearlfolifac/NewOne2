@@ -18,11 +18,11 @@ public class Cloud extends Actor
      */
     public void act()
     {
-        if(Greenfoot.isKeyDown("right"))
+        if(Greenfoot.isKeyDown("right")||Greenfoot.isKeyDown("d"))
         {
             move(-2);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
         {
             move(2);
         }
