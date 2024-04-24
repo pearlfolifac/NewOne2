@@ -34,18 +34,19 @@ public class Bob extends Actor
     }
     public void moveAround ()
     {
-        if(Greenfoot.isKeyDown("space") && (onGround() == true || onPlanet() == true))
-        {
-            vSpeed = jumpHeight;
-            fall();
-            collect();
-        }
-        if (Greenfoot.isKeyDown("space"))
-        {
-            vSpeed = jumpHeight; // Set the vertical speed again for the double jump
-            fall(); // Handle falling behavior
-            collect(); // Collect any items during the double jump
-        }
+       if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
+       {
+           move(4);
+       }
+       if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
+       {
+           move(-4);
+       }
+       if (Greenfoot.isKeyDown("space"))
+       {
+           vSpeed = jumpHeight;
+           fall();
+       }
     }
     boolean onGround()
     {
