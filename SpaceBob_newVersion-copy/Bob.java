@@ -47,6 +47,9 @@ public class Bob extends Actor
            vSpeed = jumpHeight;
            fall();
        }
+       if (Greenfoot.isKeyDown("x")) {
+           getWorld().addObject(new Bullet(), getX(), getY());
+        }
     }
     boolean onGround()
     {
