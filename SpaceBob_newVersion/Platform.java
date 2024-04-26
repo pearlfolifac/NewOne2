@@ -19,16 +19,16 @@ public class Platform extends Actor
     public void act()
     {
         if(Greenfoot.isKeyDown("right")||Greenfoot.isKeyDown("d"))
-        {
-            move(-4);
-        }
+            {
+                move(-4);
+            }
         if(Greenfoot.isKeyDown("left")|| Greenfoot.isKeyDown("a"))
         {
             move(4);
         }
-        if(getX()==0)
-        {
-            setLocation(getWorld().getWidth()-1,Greenfoot.getRandomNumber(196)+353);
+        // Check if the object hits either side of the world
+        if (getX() == 0) {
+            setLocation(getWorld().getWidth()-1,Greenfoot.getRandomNumber(260)+300);
         }
-    }
+    }    
 }
