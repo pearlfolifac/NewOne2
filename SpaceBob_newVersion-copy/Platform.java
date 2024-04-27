@@ -26,9 +26,12 @@ public class Platform extends Actor
         {
             move(4);
         }
-        // Check if the object hits either side of the world
-        if (getX() == 0) {
-            setLocation(getWorld().getWidth()-1,Greenfoot.getRandomNumber(260)+300);
+        int x = getX();
+        int worldWidth = getWorld().getWidth();
+        if (x == 0) {
+            setLocation(worldWidth - 1, Greenfoot.getRandomNumber(260) + 300);
+        } else if (x >= worldWidth - 1) {
+            setLocation(0, Greenfoot.getRandomNumber(260) + 300);
         }
     }    
 }

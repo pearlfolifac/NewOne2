@@ -23,7 +23,7 @@ public class Background extends World
     {
         if(Greenfoot.getRandomNumber(600)<=2)
         {
-            addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(250)+500);
+            addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(277)+343);
         }
     }
     
@@ -70,5 +70,15 @@ public class Background extends World
         Bob bob = new Bob();
         addObject(bob,184,523);
         bob.setLocation(201,469);
+        Cloud cloud3 = new Cloud();
+        addObject(cloud3,809,76);
+        cloud.setLocation(443,119);
+        cloud.setLocation(286,66);
+        cloud2.setLocation(534,192);
+        removeObject(cloud2);
+        cloud3.setLocation(668,208);
+        star.setLocation(492,112);
+        cloud.setLocation(255,127);
+        cloud3.setLocation(516,235);
     }
 }

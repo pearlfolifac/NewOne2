@@ -19,16 +19,19 @@ public class Cloud extends Actor
     public void act()
     {
         if(Greenfoot.isKeyDown("right")||Greenfoot.isKeyDown("d"))
+            {
+                move(-4);
+            }
+        if(Greenfoot.isKeyDown("left")|| Greenfoot.isKeyDown("a"))
         {
-            move(-2);
+            move(4);
         }
-        if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
-        {
-            move(2);
-        }
-        if(getX()==0)
-        {
-            setLocation(getWorld().getWidth()-1,Greenfoot.getRandomNumber(150)+30);
+        int x = getX();
+        int worldWidth = getWorld().getWidth();
+          if (x == 0) {
+            setLocation(worldWidth - 1, Greenfoot.getRandomNumber(160) + 40);
+        } else if (x >= worldWidth - 1) {
+            setLocation(0, Greenfoot.getRandomNumber(160) + 40);
         }
     }
 }
