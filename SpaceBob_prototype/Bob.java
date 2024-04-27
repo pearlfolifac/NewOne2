@@ -39,11 +39,11 @@ public class Bob extends Actor
     {
        if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
        {
-           move(4);
+           move(2);
        }
        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
        {
-           move(-4);
+           move(-2);
        }
        if (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w"))
        {
