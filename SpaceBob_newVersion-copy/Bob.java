@@ -42,12 +42,12 @@ public class Bob extends Actor
        {
            move(-4);
        }
-       if (Greenfoot.isKeyDown("space"))
+       if (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w"))
        {
            vSpeed = jumpHeight;
            fall();
        }
-       if (Greenfoot.isKeyDown("x")) {
+       if (Greenfoot.mouseClicked(null)) {
            getWorld().addObject(new Bullet(), getX(), getY());
         }
     }
