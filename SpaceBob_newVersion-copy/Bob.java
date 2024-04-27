@@ -46,10 +46,19 @@ public class Bob extends Actor
        {
            vSpeed = jumpHeight;
            fall();
+           GreenfootSound jumpSound = new GreenfootSound("jump2.wav");
+           adjustVolume(jumpSound,70);
+           jumpSound.play();
        }
        if (Greenfoot.mouseClicked(null)) {
            getWorld().addObject(new Bullet(), getX(), getY());
+           GreenfootSound shootSound = new GreenfootSound("shoot.wav");
+           adjustVolume(shootSound,70);
+           shootSound.play();
         }
+    }
+    private void adjustVolume(GreenfootSound sound, int volume) {
+        sound.setVolume(70);
     }
     boolean onGround()
     {

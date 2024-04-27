@@ -12,13 +12,16 @@ public class Background extends World
      * Constructor for objects of class Background.
      * 
      */
+    private GreenfootSound backgroundMusic;
     public Background()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1); 
         prepare();
+        backgroundMusic = new GreenfootSound("background.mp3"); // Replace with your sound file
+        adjustVolume(backgroundMusic, 50); // Adjust volume to desired level (0-100)
+        playBackgroundMusic();
     }
-    
     public void act()
     {
         if(Greenfoot.getRandomNumber(600)<=2)
@@ -26,7 +29,21 @@ public class Background extends World
             addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(277)+343);
         }
     }
-    
+    private void playBackgroundMusic()
+    {
+        if(!backgroundMusic.isPlaying())
+        {
+            backgroundMusic.playLoop();
+        }
+    }
+    private void adjustVolume(GreenfootSound sound, int volume)
+    {
+        sound.setVolume(volume);
+    }
+    public void stopped()
+    {
+        backgroundMusic.stop();
+    }
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
