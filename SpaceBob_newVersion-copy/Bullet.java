@@ -15,7 +15,8 @@ public class Bullet extends Actor
         removeBullet();
     }
     
-    public void removeBullet() {
+    public void removeBullet()
+    {
         Actor wall = getOneIntersectingObject(Platform.class);
         if (wall != null)
         {

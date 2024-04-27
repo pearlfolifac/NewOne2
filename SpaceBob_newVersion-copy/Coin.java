@@ -22,10 +22,12 @@ public class Coin extends Actor
      {
            move(-4);
      }
+     
      if (Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
      {
            move(4);
      }
+     
      if(getX()==0)
      {
            getWorld().removeObject(this);

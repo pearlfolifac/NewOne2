@@ -18,14 +18,11 @@ public class Planet extends Actor
         {
             move(-4);
         }
+        
         if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
         {
             move(4);
         }
-        //if(getX()==0)
-        //{
-        //    setLocation(getWorld().getWidth()+491,getWorld().getHeight()+491);
-        //}
         int x = getX();
         int y = getY();
         int worldWidth = getWorld().getWidth();

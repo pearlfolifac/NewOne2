@@ -17,6 +17,7 @@ public class Bob extends Actor
     {
         getImage().scale(getImage().getWidth()*2,getImage().getHeight()*2);
     }
+    
     /**
      * Act - do whatever the Bob wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -27,11 +28,13 @@ public class Bob extends Actor
        checkFalling();
        collect();
     }
+    
     private void fall()
     {
         setLocation(getX(), getY() + vSpeed);
         vSpeed = vSpeed + acceleration;
     }
+    
     public void moveAround ()
     {
        if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
@@ -46,7 +49,7 @@ public class Bob extends Actor
        {
            vSpeed = jumpHeight;
            fall();
-           GreenfootSound jumpSound = new GreenfootSound("jump2.wav");
+           GreenfootSound jumpSound = new GreenfootSound("jump.wav");
            adjustVolume(jumpSound,70);
            jumpSound.play();
        }
@@ -57,19 +60,23 @@ public class Bob extends Actor
            shootSound.play();
         }
     }
+    
     private void adjustVolume(GreenfootSound sound, int volume) {
         sound.setVolume(70);
     }
+    
     boolean onGround()
     {
         Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2, Platform.class);
         return under != null;
     }
+    
     boolean onPlanet()
     {
         Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2, Planet.class);
         return under != null;
     }
+    
     public void checkFalling()
     {
         if (onGround() == false || onPlanet() == false)
@@ -81,6 +88,7 @@ public class Bob extends Actor
             vSpeed = 0;
         }
     }
+    
     public void collect()
     {
         Actor coin = getOneIntersectingObject(Coin.class);

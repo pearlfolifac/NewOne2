@@ -22,13 +22,14 @@ public class Star extends Actor
         {
             move(-1);
         }
+        
         if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
         {
             move(1);
         }
+        
         int x = getX();
         int worldWidth = getWorld().getWidth();
-        
         if (x == 0) {
             setLocation(worldWidth - 1, Greenfoot.getRandomNumber(240) + 40);
         } else if (x >= worldWidth - 1) {
