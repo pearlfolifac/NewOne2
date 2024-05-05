@@ -14,15 +14,6 @@ public class Planet extends Actor
      */
     public void act()
     {
-        if(Greenfoot.isKeyDown("right")||Greenfoot.isKeyDown("d"))
-        {
-            move(-4);
-        }
-        
-        if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
-        {
-            move(4);
-        }
         int x = getX();
         int y = getY();
         int worldWidth = getWorld().getWidth();

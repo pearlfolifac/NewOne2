@@ -1,112 +1,176 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
+import java.util.List;
 
-/**
- * Write a description of class Background here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Background extends World
-{
-    /**
-     * Constructor for objects of class Background.
-     * 
-     */
+public class Background extends World {
     private GreenfootSound backgroundMusic;
-    public Background()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+     private int scrollOffset = 0;
+     private int minionSpawnTimer = Greenfoot.getRandomNumber(200) + 100;
+    public Background() {    
         super(1000, 800, 1); 
         prepare();
+        setupBackgroundMusic();
+    }
+    
+        private void respawnMinions() {
+        int numMinions = getObjects(Minion.class).size();
+        int maxMinions = 2; // Adjust this value as needed
+    
+        if (numMinions < maxMinions) {
+            addMinions();
+        }
+    }
+    
+    public void act() {
+     // Appeler les méthodes pour gérer les pièces de monnaie et les minions
+    spawnCoins();
+    checkMinionRespawn();
+    
+    // Appeler la méthode act() de la classe parent
+    super.act();
+    
+    // Ajuster la position des acteurs en fonction du défilement
+    adjustActorPositions();
+    
+    minionAddedThisAct = false;
+}
+
+private void adjustActorPositions() {
+    // Récupérer tous les acteurs dans le monde
+    List<Actor> actors = getObjects(Actor.class);
+    
+    // Ajuster la position de chaque acteur en fonction du défilement
+    for (Actor actor : actors) {
+        actor.setLocation(actor.getX() - scrollOffset, actor.getY());
+    }
+    
+    // Réinitialiser le décalage de défilement après avoir ajusté tous les objets
+    scrollOffset = 0;
+}
+
+private boolean minionAddedThisAct = false;
+
+private void checkMinionRespawn() {
+    minionSpawnTimer--;
+    if (minionSpawnTimer <= 0 && !minionAddedThisAct) {
+        addMinions(); // Ajouter un nouveau Minion
+        // Réinitialiser le minuteur avec une nouvelle valeur aléatoire
+        minionSpawnTimer = Greenfoot.getRandomNumber(600) + 300;
+        minionAddedThisAct = true;
+    }
+}
+
+    
+     public void scroll(int amount) {
+        scrollOffset += amount;
+    }
+    
+    private Planet getPlanet() {
+        List<Planet> planets = getObjects(Planet.class);
+        return planets.isEmpty() ? null : planets.get(0);
+    }
+    
+    private Bob getBob() {
+        List<Bob> bobs = getObjects(Bob.class);
+        return bobs.isEmpty() ? null : bobs.get(0);
+    }
+        
+    private void setupBackgroundMusic() {
         backgroundMusic = new GreenfootSound("background.mp3");
         adjustVolume(backgroundMusic, 50);
         playBackgroundMusic();
     }
     
-    public void act()
-    {
-        if(Greenfoot.getRandomNumber(600)<=2)
-        {
-            addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(277)+343);
-        }
-    }
-    
-    private void playBackgroundMusic()
-    {
-        if(!backgroundMusic.isPlaying())
-        {
+    private void playBackgroundMusic() {
+        if (!backgroundMusic.isPlaying()) {
             backgroundMusic.playLoop();
         }
     }
     
-    private void adjustVolume(GreenfootSound sound, int volume)
-    {
+    private void adjustVolume(GreenfootSound sound, int volume) {
         sound.setVolume(volume);
     }
     
-    public void stopped()
-    {
+    public void stopped() {
         backgroundMusic.stop();
     }
     
-    /**
-     * Prepare the world for the start of the program.
-     * That is: create the initial objects and add them to the world.
-     */
-    private void prepare()
-    {
-        Cloud cloud = new Cloud();
-        addObject(cloud,247,145);
-        cloud.setLocation(311,43);
+    private void prepare() {
+        addStars();
+        addClouds();
+        addPlatforms();
+        addPlanet();
+        addSpikes();
+        addMinions();
+        addBob();
+        addLives();
+    }
+    
+    private void addClouds() {
+        Cloud cloud1 = new Cloud();
+        addObject(cloud1, 311, 43);
+        
         Cloud cloud2 = new Cloud();
-        addObject(cloud2,614,95);
-        cloud2.setLocation(466,134);
-
-        Star star = new Star();
-        addObject(star,466,134);
+        addObject(cloud2, 466, 134);
+    }
+    
+    private void addStars() {
+         Star star1 = new Star();
+        addObject(star1, 621, 103);
+    
         Star star2 = new Star();
-        addObject(star2,865,144);
+        addObject(star2, 49, 82);
+        
         Star star3 = new Star();
-        addObject(star3,49,82);
+        addObject(star3, 320, 260);
+        
         Star star4 = new Star();
-        addObject(star4,243,281);
+        addObject(star4, 960, 170);
+        
         Star star5 = new Star();
-        addObject(star5,667,274);
-        Star star6 = new Star();
-        addObject(star6,754,43);
-        Star star7 = new Star();
-        addObject(star7,442,260);
-        Star star8 = new Star();
-        addObject(star8,311,43);
-        Star star9 = new Star();
-        addObject(star9,857,233);
-
-        Platform platform = new Platform();
-        addObject(platform,172,563);
+        addObject(star5, 732, 200);
+    }
+    
+    private void addPlatforms() {
+        Platform platform1 = new Platform();
+        addObject(platform1, 172, 563);
+    
         Platform platform2 = new Platform();
-        addObject(platform2,600,499);
-
+        addObject(platform2, 600, 499);
+    }
+    
+    private void addPlanet() {
         Planet planet = new Planet();
-        addObject(planet,500,738);
-        planet.setLocation(490,758);
+        addObject(planet, 490, 758);   
+    }
+    
+    private void addBob() {
         Bob bob = new Bob();
-        addObject(bob,184,523);
-        bob.setLocation(201,469);
-        Cloud cloud3 = new Cloud();
-        addObject(cloud3,809,76);
-        cloud.setLocation(443,119);
-        cloud.setLocation(286,66);
-        cloud2.setLocation(534,192);
-        removeObject(cloud2);
-        cloud3.setLocation(668,208);
-        star.setLocation(492,112);
-        cloud.setLocation(255,127);
-        cloud3.setLocation(516,235);
-        Spike spike = new Spike();
-        addObject(spike,184,623);
+        addObject(bob, 172, 491);
+    }
+    
+    private void addSpikes() {
+        Spike spike1 = new Spike();
+        addObject(spike1, 184, 626);
+        
         Spike spike2 = new Spike();
-        addObject(spike2,922,622);
-        spike2.setLocation(924,619);
-        spike2.setLocation(925,626);
+        addObject(spike2, 925, 626);
+    }
+    
+    private void addMinions() {
+         Minion minion1 = new Minion();
+    addObject(minion1, getWidth() - 1, 615);
+    }
+    
+    private void addLives() {
+        for (int i = 0; i < 5; i++) {
+            Live live = new Live();
+            addObject(live, 50 + i * 40, 50);
+        }
+    }
+    
+    private void spawnCoins() {
+        if (Greenfoot.getRandomNumber(600) <= 2) {
+            addObject(new Coin(), getWidth() - 1, Greenfoot.getRandomNumber(277) + 343);
+        }
     }
 }

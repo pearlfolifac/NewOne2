@@ -1,31 +1,32 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class Bullet here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Bullet extends Actor
-{
+public class Bullet extends Actor {
     public int speed = 20;
-    public void act()
-    {
+    
+    public void act() {
         move(speed);
         removeBullet();
     }
     
-    public void removeBullet()
-    {
-        Actor wall = getOneIntersectingObject(Platform.class);
-        if (wall != null)
-        {
+    public void removeBullet() {
+        // Check for collision with the world edge
+        if (getX() >= getWorld().getWidth() - 1) {
             getWorld().removeObject(this);
-            
+            return;
         }
-        // Now remove bullet when it's on the edge of screen
-        else if(getX() >= getWorld().getWidth() - 1) 
-        {
+        
+        // Check for collision with a platform
+        Actor wall = getOneIntersectingObject(Platform.class);
+        if (wall != null) {
+            getWorld().removeObject(this);
+            return;
+        }
+        
+        // Check for collision with a minion
+        Actor minion = getOneIntersectingObject(Minion.class);
+        if (minion != null) {
+            Minion m = (Minion)minion;
+            m.handleCollision(); // Call a method in Minion to handle the collision
             getWorld().removeObject(this);
         }
     }

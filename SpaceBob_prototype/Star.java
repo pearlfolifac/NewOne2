@@ -18,15 +18,6 @@ public class Star extends Actor
      */
     public void act()
     {
-        if(Greenfoot.isKeyDown("right")||Greenfoot.isKeyDown("d"))
-        {
-            move(-1);
-        }
-        
-        if(Greenfoot.isKeyDown("left")||Greenfoot.isKeyDown("a"))
-        {
-            move(1);
-        }
         
         int x = getX();
         int worldWidth = getWorld().getWidth();
