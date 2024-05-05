@@ -102,5 +102,11 @@ public class Background extends World
         star.setLocation(492,112);
         cloud.setLocation(255,127);
         cloud3.setLocation(516,235);
+        Spike spike = new Spike();
+        addObject(spike,184,623);
+        Spike spike2 = new Spike();
+        addObject(spike2,922,622);
+        spike2.setLocation(924,619);
+        spike2.setLocation(925,626);
     }
 }
