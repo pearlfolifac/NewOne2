@@ -58,7 +58,7 @@ public class Bob extends Actor {
             if (!hasJumped) {
                 vSpeed = jumpHeight;
                 fall();
-                GreenfootSound jumpSound = new GreenfootSound("jump.wav");
+                GreenfootSound jumpSound = new GreenfootSound("jump10.wav");
                 adjustVolume(jumpSound, 70);
                 jumpSound.play();
                 hasJumped = true;
@@ -108,6 +108,9 @@ public class Bob extends Actor {
         if (coin != null) {
             getWorld().removeObject(coin);
             collect++;
+            GreenfootSound jumpSound = new GreenfootSound("pickupCoin.wav");
+            adjustVolume(jumpSound, 70);
+            jumpSound.play();
         }
     }
     private void checkCollision() {
@@ -116,6 +119,9 @@ public class Bob extends Actor {
             if (badGuy instanceof Minion || badGuy instanceof Spike) {
                 loseLife(); // Gérer la perte de vie
                 collisionDetected = true; // Marquer la collision comme détectée
+                GreenfootSound jumpSound = new GreenfootSound("hurt.wav");
+                adjustVolume(jumpSound, 70);
+                jumpSound.play();
             }
         } else if (badGuy == null) {
             collisionDetected = false; // Réinitialiser le détecteur de collision si Bob n'est plus en collision avec un ennemi
