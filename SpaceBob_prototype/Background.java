@@ -95,6 +95,10 @@ private void checkMinionRespawn() {
     }
     
     private void prepare() {
+        addPlanetBackground();
+        addKing();
+        addMam();
+        addCastle();
         addStars();
         addClouds();
         addPlatforms();
@@ -111,6 +115,26 @@ private void checkMinionRespawn() {
         
         Cloud cloud2 = new Cloud();
         addObject(cloud2, 466, 134);
+    }
+    
+    private void addPlanetBackground() {
+        PlanetBackground planetbackground = new PlanetBackground();
+        addObject(planetbackground, 530, 610);
+    }
+    
+    private void addCastle() {
+        Castle castle = new Castle();
+        addObject(castle, 523, 533);
+    }
+    
+    private void addMam() {
+        Mam mam = new Mam();
+        addObject(mam, 516, 539);
+    }
+    
+    private void addKing() {
+        King king = new King();
+        addObject(king, 531, 539);
     }
     
     private void addStars() {

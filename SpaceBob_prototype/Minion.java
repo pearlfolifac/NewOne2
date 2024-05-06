@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Minion extends Actor {
+public class Minion extends BadGuys {
     private boolean addedToWorld = false;
     
     public Minion() {

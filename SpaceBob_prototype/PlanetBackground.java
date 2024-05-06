@@ -1,20 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class King here.
+ * Write a description of class PlanetBackground here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class King extends BakgroundDecor
+public class PlanetBackground extends BakgroundDecor
 {
     /**
-     * Act - do whatever the King wants to do. This method is called whenever
+     * Act - do whatever the PlanetBackground wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public King()
+    public PlanetBackground()
     {
-        getImage().scale(getImage().getWidth()/6,getImage().getHeight()/6);
+        getImage().scale(getImage().getWidth(),getImage().getHeight()/2);
     }
     public void act()
     {
