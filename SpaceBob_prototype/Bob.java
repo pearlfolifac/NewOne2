@@ -10,7 +10,7 @@ public class Bob extends Actor {
     private boolean isTouchingSpike = false;
     private boolean collisionDetected = false;
     private boolean hasJumped = false;
-
+    public static int level = 1; // static: player must always remember level
     public Bob() {
         getImage().scale(getImage().getWidth() * 3/2, getImage().getHeight() * 3/2);
     }
@@ -19,6 +19,7 @@ public class Bob extends Actor {
         moveAround();
         checkFalling();
         collect();
+        levelUp();
     
         if (!isTouchingSpike) {
             hasJumped = false;
@@ -141,6 +142,20 @@ public class Bob extends Actor {
         List<Live> hearts = getWorld().getObjects(Live.class);
         if (!hearts.isEmpty()) {
             getWorld().removeObject(hearts.get(hearts.size() - 1)); // Remove the last live heart
+        }
+    }
+    public void levelUp() {
+        Actor portal = getOneIntersectingObject(Portal.class);
+        if (portal != null) { //Bob touching portal
+            if (level == 1){
+                level = 2;
+                //Greenfoot.setWorld(new Level2World());
+                Greenfoot.setWorld(new Background2());
+            }
+        else if (level == 2) {
+            level = 3;
+            //l3 wrld
+        }
         }
     }
 }
