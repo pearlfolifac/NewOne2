@@ -12,7 +12,7 @@ public class Bob extends Actor {
     private boolean hasJumped = false;
 
     public Bob() {
-        getImage().scale(getImage().getWidth() * 2, getImage().getHeight() * 2);
+        getImage().scale(getImage().getWidth() * 3/2, getImage().getHeight() * 3/2);
     }
 
     public void act() {
@@ -62,6 +62,7 @@ public class Bob extends Actor {
                 adjustVolume(jumpSound, 70);
                 jumpSound.play();
                 hasJumped = true;
+                
             }
         }
         
