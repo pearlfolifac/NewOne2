@@ -20,10 +20,6 @@ public class Bob extends Actor {
     GreenfootImage bob3 = new GreenfootImage("RBob1.png");
     GreenfootImage bob4 = new GreenfootImage("RBob2.png");
     
-    public Bob() {
-        getImage().scale(getImage().getWidth() * 3/2, getImage().getHeight() * 3/2);
-    }
-
     public void act() {
         moveAround();
         checkFalling();
