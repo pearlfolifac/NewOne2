@@ -11,6 +11,15 @@ public class Bob extends Actor {
     private boolean collisionDetected = false;
     private boolean hasJumped = false;
     public static int level = 1; // static: player must always remember level
+    
+    public int frame = 1;
+    public int animationSpeed;
+    
+    GreenfootImage bob1 = new GreenfootImage("Bob.png");
+    GreenfootImage bob2 = new GreenfootImage("Bob2.png");
+    GreenfootImage bob3 = new GreenfootImage("RBob1.png");
+    GreenfootImage bob4 = new GreenfootImage("RBob2.png");
+    
     public Bob() {
         getImage().scale(getImage().getWidth() * 3/2, getImage().getHeight() * 3/2);
     }
@@ -47,12 +56,21 @@ public class Bob extends Actor {
     }
 
     public void moveAround() {
+        animationSpeed = animationSpeed + 1;
         if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
             move(3);
+            if(animationSpeed % 5 == 0)
+            {
+                animateRight();
+            }
         }
         
         if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
             move(-4);
+            if(animationSpeed % 5 == 0)
+            {
+                animateLeft();
+            }
         }
         
         if (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w")) {
@@ -156,6 +174,32 @@ public class Bob extends Actor {
             level = 3;
             //l3 wrld
         }
+        }
+    }
+    public void animateRight()
+    {
+        if(frame == 1)
+        {
+            setImage(bob1);
+            frame = 2;
+        }
+        else
+        {
+            setImage(bob2);
+            frame = 1;
+        }
+    }
+    public void animateLeft()
+    {
+        if(frame == 1)
+        {
+            setImage(bob3);
+            frame = 2;
+        }
+        else
+        {
+            setImage(bob4);
+            frame = 1;
         }
     }
 }
