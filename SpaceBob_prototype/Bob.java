@@ -1,5 +1,6 @@
 import greenfoot.*; 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Bob extends Actor {
     private int vSpeed = 0;
@@ -7,6 +8,7 @@ public class Bob extends Actor {
     private int jumpHeight = -10;
     private int collect = 0;
     private int livesCount = 5;
+    private int bulletsCount = 10;
     private boolean isTouchingSpike = false;
     private boolean collisionDetected = false;
     private boolean hasJumped = false;
@@ -25,6 +27,7 @@ public class Bob extends Actor {
         checkFalling();
         collect();
         levelUp();
+        
     
         if (!isTouchingSpike) {
             hasJumped = false;
@@ -40,7 +43,7 @@ public class Bob extends Actor {
         // Loop through each object
         for (Actor object : objects) {
             // If the object is not Bob, move it to the left
-            if (object != this && !(object instanceof Live) && !(object instanceof PlanetBackground) && !(object instanceof Castle) && !(object instanceof King) && !(object instanceof Mam)) {
+            if (object != this && !(object instanceof Live) && !(object instanceof BulletDisplayed) && !(object instanceof PlanetBackground) && !(object instanceof Castle) && !(object instanceof King) && !(object instanceof Mam) && !(object instanceof Castle) && !(object instanceof King)) {
                 object.move(-3);
             }
         }
@@ -81,17 +84,22 @@ public class Bob extends Actor {
             }
         }
         
-        if (Greenfoot.mouseClicked(null)) {
-            getWorld().addObject(new Bullet(), getX(), getY());
-            GreenfootSound shootSound = new GreenfootSound("shoot.wav");
-            adjustVolume(shootSound, 70);
-            shootSound.play();
-        
-            // Check for collision with Minion when the bullet is added
-            Actor minion = getOneIntersectingObject(Minion.class);
-            if (minion != null) {
-                // If the bullet intersects with a Minion, remove the Minion
-                getWorld().removeObject(minion); // Remove the minion from the world
+        if (bulletsCount == 0) {
+            
+        } else {
+                if (Greenfoot.mouseClicked(null)) {
+                getWorld().addObject(new Bullet(), getX(), getY());
+                GreenfootSound shootSound = new GreenfootSound("shoot.wav");
+                adjustVolume(shootSound, 70);
+                shootSound.play();
+                loseBulletDisplayed();
+            
+                // Check for collision with Minion when the bullet is added
+                Actor minion = getOneIntersectingObject(Minion.class);
+                if (minion != null) {
+                    // If the bullet intersects with a Minion, remove the Minion
+                    getWorld().removeObject(minion); // Remove the minion from the world
+                }
             }
         }
     }
@@ -124,9 +132,21 @@ public class Bob extends Actor {
         if (coin != null) {
             getWorld().removeObject(coin);
             collect++;
-            GreenfootSound jumpSound = new GreenfootSound("pickupCoin.wav");
-            adjustVolume(jumpSound, 70);
-            jumpSound.play();
+            GreenfootSound pickupCoinSound = new GreenfootSound("pickupCoin.wav");
+            adjustVolume(pickupCoinSound, 70);
+            pickupCoinSound.play();
+        }
+        
+        Actor bulletAppearing = getOneIntersectingObject(BulletAppearing.class);
+        if (bulletAppearing != null) {
+            getWorld().removeObject(bulletAppearing);
+            bulletsCount++;
+            
+            addBulletDisplayed();
+            
+            GreenfootSound pickupCoinSound = new GreenfootSound("pickupCoin.wav");
+            adjustVolume(pickupCoinSound, 70);
+            pickupCoinSound.play();
         }
     }
     private void checkCollision() {
@@ -158,6 +178,35 @@ public class Bob extends Actor {
             getWorld().removeObject(hearts.get(hearts.size() - 1)); // Remove the last live heart
         }
     }
+    
+    private void loseBulletDisplayed() {
+        bulletsCount--;
+        removeBulletDisplayed();
+    }
+
+    private void removeBulletDisplayed() {
+        List<BulletDisplayed> bulletsDisplayed = getWorld().getObjects(BulletDisplayed.class);
+        if (!bulletsDisplayed.isEmpty()) {
+            getWorld().removeObject(bulletsDisplayed.get(bulletsDisplayed.size() - 1));
+        }
+    }
+    
+private void addBulletDisplayed() {
+    // Get all bullets displayed in the row
+    List<BulletDisplayed> bulletsDisplayed = getWorld().getObjects(BulletDisplayed.class);
+    
+    // If there are fewer than 10 bullets displayed, add a new bullet to maintain the row
+    if (bulletsDisplayed.size() < 10) {
+        // Calculate the x-coordinate for the new bullet based on the number of bullets already displayed
+        int newX = 40 + bulletsDisplayed.size() * 20;
+        
+        // Add the new bullet to the world
+        BulletDisplayed newBullet = new BulletDisplayed();
+        getWorld().addObject(newBullet, newX, 90);
+    }
+}
+
+    
     public void levelUp() {
         Actor portal = getOneIntersectingObject(Portal.class);
         if (portal != null) { //Bob touching portal

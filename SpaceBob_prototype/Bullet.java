@@ -3,6 +3,11 @@ import greenfoot.*;
 public class Bullet extends Actor {
     public int speed = 20;
     
+    public Bullet()
+    {
+        getImage().scale(getImage().getWidth()/5,getImage().getHeight()/5);
+    }
+    
     public void act() {
         move(speed);
         removeBullet();

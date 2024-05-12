@@ -23,6 +23,7 @@ public class Background extends World {
     public void act() {
      // Appeler les méthodes pour gérer les pièces de monnaie et les minions
     spawnCoins();
+    spawnBullets();
     checkMinionRespawn();
     
     // Appeler la méthode act() de la classe parent
@@ -107,6 +108,7 @@ private void checkMinionRespawn() {
         addMinions();
         addBob();
         addLives();
+        addBulletsDisplayedFirst();
     }
     
     private void addClouds() {
@@ -192,9 +194,22 @@ private void checkMinionRespawn() {
         }
     }
     
+    private void addBulletsDisplayedFirst() {
+    for (int i = 0; i < 10; i++) {
+        BulletDisplayed bulletDisplayed = new BulletDisplayed();
+        addObject(bulletDisplayed, 40 + i * 20, 90);
+    }
+}
+
     private void spawnCoins() {
         if (Greenfoot.getRandomNumber(600) <= 2) {
             addObject(new Coin(), getWidth() - 1, Greenfoot.getRandomNumber(277) + 343);
+        }
+    }
+    
+    private void spawnBullets() {
+        if (Greenfoot.getRandomNumber(600) <= 2) {
+            addObject(new BulletAppearing(), getWidth() - 1, Greenfoot.getRandomNumber(277) + 343);
         }
     }
 }
